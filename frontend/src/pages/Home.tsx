@@ -4,6 +4,7 @@ import {
   withStyles,
   createStyles,
   InputBase,
+  Theme,
   Grid,
   IconButton,
   Paper,
@@ -11,7 +12,6 @@ import {
   Container,
   Avatar,
 } from "@material-ui/core";
-import classNames from 'classnames';
 import TwitterIcon from "@material-ui/icons/Twitter";
 import SearchIcon from "@material-ui/icons/Search";
 import NotificationIcon from "@material-ui/icons/NotificationsNoneOutlined";
@@ -20,12 +20,11 @@ import BookmarkIcon from "@material-ui/icons/BookmarkBorderOutlined";
 import ListIcon from "@material-ui/icons/ListAltOutlined";
 import UserIcon from "@material-ui/icons/PermIdentityOutlined";
 import grey from "@material-ui/core/colors/grey";
-import CommentIcon from '@material-ui/icons/ChatBubbleOutlineOutlined';
-import RepostIcon from '@material-ui/icons/RepeatOutlined';
-import LikeIcon from '@material-ui/icons/FavoriteBorderOutlined';
-import ShareIcon from '@material-ui/icons/ReplyOutlined';
 
-const useStylesHome = makeStyles((theme) => ({
+import { SideMenu } from '../components/SideMenu';
+import Tweet from "../components/Tweet";
+
+export const useStylesHome = makeStyles((theme: Theme) => ({
   wrapper: {
     height: "100vh",
   },
@@ -40,18 +39,46 @@ const useStylesHome = makeStyles((theme) => ({
     listStyle: "none",
     padding: 0,
     margin: 0,
+    width: 230
   },
   sideMenuListItem: {
-    display: "flex",
-    alignItems: "center",
+    cursor: 'pointer',
+    marginBottom: 10,
+    '&:hover': {
+        '& div': {
+          backgroundColor: 'rgb(29, 161, 242, 0.1)',
+          '& h6': {
+            color: theme.palette.primary.main,
+          },
+          '& svg': {
+            fill : theme.palette.primary.main,
+          }
+        }
+      },
+    '& div': {
+      display: 'inline-flex',
+      alignItems: 'center',
+      position: 'relative',
+      left: -10,
+      padding: '0 25px 0 20px',
+      borderRadius: 30,
+      height: 50,
+      marginBottom: 10,
+      transition: 'background-color 0.1s ease-in-out'
+    }
   },
   sideMenuListItemIcon: {
     fontSize: 28,
+    marginLeft: -5,
   },
   sideMenuListItemLabel: {
     fontWeight: 700,
     fontSize: 18,
     marginLeft: 15,
+  },
+  sideMenuTweetButton: {
+    padding: theme.spacing(3.2),
+    marginTop: theme.spacing(3)
   },
   tweetsWrapper: {
     borderRadius: 0,
@@ -70,10 +97,16 @@ const useStylesHome = makeStyles((theme) => ({
     },
   },
   tweet: {
+    cursor: 'pointer',
+    paddingTop: 15,
+    paddingLeft: 20,
     '& :hover': {
       backgroundColor: 'rgb(245, 248, 250)',
-      cursor: 'pointer'
     } 
+  },
+  tweetAvatar: {
+    width: theme.spacing(5),
+    height: theme.spacing(5),
   },
   tweetUserName: {
     color: grey[500],
@@ -81,7 +114,9 @@ const useStylesHome = makeStyles((theme) => ({
   tweetFooter: {
     display: 'flex',
     justifyContent: 'space-between',
-    width: 450
+    width: 450,
+    position: 'relative',
+    left: -13
   }
 }));
 
@@ -103,168 +138,27 @@ const Home = () => {
     <Container className={classes.wrapper} maxWidth="lg">
       <Grid container spacing={3}>
         <Grid item xs={3}>
-          <ul className={classes.sideMenuList}>
-            <li className={classes.sideMenuListItem}>
-              <IconButton
-                className={classes.logo}
-                aria-label="twitter"
-                color="primary"
-              >
-                <TwitterIcon className={classes.logoIcon} />
-              </IconButton>
-            </li>
-            <li className={classes.sideMenuListItem}>
-              <IconButton
-                aria-label="search"
-                //color="primary"
-              >
-                <SearchIcon className={classes.sideMenuListItemIcon} />
-              </IconButton>
-              <Typography
-                className={classes.sideMenuListItemLabel}
-                variant="h6"
-              >
-                Поиск
-              </Typography>
-            </li>
-            <li className={classes.sideMenuListItem}>
-              <IconButton
-                aria-label="notification"
-                //color="primary"
-              >
-                <NotificationIcon
-                  color="inherit"
-                  className={classes.sideMenuListItemIcon}
-                />
-              </IconButton>
-              <Typography
-                className={classes.sideMenuListItemLabel}
-                variant="h6"
-              >
-                Уведомления
-              </Typography>
-            </li>
-            <li className={classes.sideMenuListItem}>
-              <IconButton
-                aria-label="email"
-                //color="primary"
-              >
-                <EmailIcon
-                  color="inherit"
-                  className={classes.sideMenuListItemIcon}
-                />
-              </IconButton>
-              <Typography
-                className={classes.sideMenuListItemLabel}
-                variant="h6"
-              >
-                Сообщения
-              </Typography>
-            </li>
-            <li className={classes.sideMenuListItem}>
-              <IconButton
-                aria-label="bookmark"
-                //color="primary"
-              >
-                <BookmarkIcon
-                  color="inherit"
-                  className={classes.sideMenuListItemIcon}
-                />
-              </IconButton>
-              <Typography
-                className={classes.sideMenuListItemLabel}
-                variant="h6"
-              >
-                Закладки
-              </Typography>
-            </li>
-            <li className={classes.sideMenuListItem}>
-              <IconButton
-                aria-label="list"
-                //color="primary"
-              >
-                <ListIcon
-                  color="inherit"
-                  className={classes.sideMenuListItemIcon}
-                />
-              </IconButton>
-              <Typography
-                className={classes.sideMenuListItemLabel}
-                variant="h6"
-              >
-                Список
-              </Typography>
-            </li>
-            <li className={classes.sideMenuListItem}>
-              <IconButton
-                aria-label="profile"
-                //color="primary"
-              >
-                <UserIcon
-                  color="inherit"
-                  className={classes.sideMenuListItemIcon}
-                />
-              </IconButton>
-              <Typography
-                className={classes.sideMenuListItemLabel}
-                variant="h6"
-              >
-                Профиль
-              </Typography>
-            </li>
-          </ul>
+          <SideMenu classes={classes} />
         </Grid>
         <Grid item xs={6}>
           <Paper className={classes.tweetsWrapper} variant="outlined">
             <Paper className={classes.tweetsHeader} variant="outlined">
               <Typography variant="h6">Главная</Typography>
             </Paper>
-            <Paper className={classNames(classes.tweet, classes.tweetsHeader)} variant="outlined">
-              <Grid container spacing={3}>
-                <Grid item xs={1}>
-                  <Avatar
-                    alt="User Avatar"
-                    src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-                  />
-                </Grid>
-                <Grid item xs={11}>
-                  <Typography>
-                    <b>mxhxvoid</b>
-                    <span className={classes.tweetUserName}> @mahavoid</span>
-                  </Typography>
-                  <Typography variant="body1" gutterBottom>
-                    Слушаю краем уха экскурсовода в нижегородском кремле:
-                    «Против России в 1941 году ополчился весь Евросоюз». Какой
-                    Евросоюз, деревянная башка? Знайте, что пропаганда доберётся
-                    до вас даже через «гидов». Ищите нормальных неформальных
-                    экскурсоводов!
-                  </Typography>
-                  <div className={classes.tweetFooter}>
-                    <div>
-                      <IconButton color="primary">
-                        <CommentIcon style={{ fontSize: 20 }} />
-                      </IconButton>  
-                      <span>1</span>
-                    </div>
-                    <div>
-                      <IconButton color="primary">
-                        <RepostIcon style={{ fontSize: 20 }} />
-                      </IconButton>  
-                    </div>
-                    <div>
-                      <IconButton color="primary">
-                        <LikeIcon style={{ fontSize: 20 }} />
-                      </IconButton>  
-                    </div>
-                    <div>
-                      <IconButton color="primary">
-                        <ShareIcon style={{ fontSize: 20 }} />
-                      </IconButton>  
-                    </div>
-                  </div>
-                </Grid>
-              </Grid>
-            </Paper>
+            {[
+              ...new Array(20).fill(
+                <Tweet
+                  text="Петиция чтобы в каждой пачке сухариков всегда лежал один большой в три слоя обсыпанный химическими специями царь-сухарик."
+                  user={{
+                    fullname: 'Glafira Zhur',
+                    username: 'GlafiraZhur',
+                    avatarURL:
+                      'https://images.unsplash.com/photo-1528914457842-1af67b57139d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
+                  }}
+                  classes={classes}
+                />,
+              ),
+            ]}
           </Paper>
         </Grid>
         <Grid item xs={3}>
