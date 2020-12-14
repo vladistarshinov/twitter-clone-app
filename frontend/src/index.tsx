@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import { ThemeProvider } from '@material-ui/core';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { ThemeProvider, CssBaseline } from '@material-ui/core';
 
 import App from './App';
 import theme from './theme';
@@ -10,11 +10,12 @@ import './index.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router>
         <App />
-      </ThemeProvider>
-    </BrowserRouter>,
+      </Router>
+    </ThemeProvider>,
   </React.StrictMode>,
   document.getElementById('root')
 );
