@@ -6,17 +6,20 @@ import EmailIcon from '@material-ui/icons/EmailOutlined';
 import BookmarkIcon from '@material-ui/icons/BookmarkBorderOutlined';
 import ListIcon from '@material-ui/icons/ListAltOutlined';
 import UserIcon from '@material-ui/icons/PermIdentityOutlined';
-import { Button, IconButton, Typography } from '@material-ui/core';
+import CreateIcon from '@material-ui/icons/Create';
+import { Button, IconButton, Typography, Hidden } from '@material-ui/core';
 
- import { useStylesHome } from '../pages/Home';
+import { useStylesHome } from '../pages/Home/styles';
+import { ModalBlock } from './ModalBlock';
 
- interface SideMenuProps {
-     classes: ReturnType<typeof useStylesHome>;
- }
+interface SideMenuProps {
+    classes: ReturnType<typeof useStylesHome>;
+}
  
   export const SideMenu: React.FC<SideMenuProps> = ({ 
      classes 
   }: SideMenuProps): React.ReactElement => {
+
      return (
         <ul className={classes.sideMenuList}>
             <li className={classes.sideMenuListItem}>
@@ -33,12 +36,14 @@ import { Button, IconButton, Typography } from '@material-ui/core';
             <li className={classes.sideMenuListItem}>
                 <div>
                     <SearchIcon className={classes.sideMenuListItemIcon} />
-                    <Typography
-                    className={classes.sideMenuListItemLabel}
-                    variant="h6"
-                    >
-                    Поиск
-                    </Typography>
+                    <Hidden smDown>
+                        <Typography
+                            className={classes.sideMenuListItemLabel}
+                            variant="h6"
+                        >
+                            Поиск
+                        </Typography>
+                    </Hidden>
                 </div>
             </li>
             <li className={classes.sideMenuListItem}>
@@ -47,12 +52,14 @@ import { Button, IconButton, Typography } from '@material-ui/core';
                         color="inherit"
                         className={classes.sideMenuListItemIcon}
                     />
-                    <Typography
-                    className={classes.sideMenuListItemLabel}
-                    variant="h6"
-                    >
-                    Уведомления
-                    </Typography>
+                    <Hidden smDown>
+                        <Typography
+                        className={classes.sideMenuListItemLabel}
+                        variant="h6"
+                        >
+                        Уведомления
+                        </Typography>
+                    </Hidden>
                 </div>
             </li>
             <li className={classes.sideMenuListItem}>
@@ -61,12 +68,14 @@ import { Button, IconButton, Typography } from '@material-ui/core';
                         color="inherit"
                         className={classes.sideMenuListItemIcon}
                     />
-                    <Typography
-                    className={classes.sideMenuListItemLabel}
-                    variant="h6"
-                    >
-                    Сообщения
-                    </Typography>
+                    <Hidden smDown>
+                        <Typography
+                        className={classes.sideMenuListItemLabel}
+                        variant="h6"
+                        >
+                        Сообщения
+                        </Typography>
+                    </Hidden>
                 </div>
             </li>
             <li className={classes.sideMenuListItem}>
@@ -75,12 +84,14 @@ import { Button, IconButton, Typography } from '@material-ui/core';
                         color="inherit"
                         className={classes.sideMenuListItemIcon}
                     />
-                    <Typography
-                    className={classes.sideMenuListItemLabel}
-                    variant="h6"
-                    >
-                    Закладки
-                    </Typography>
+                    <Hidden smDown>
+                        <Typography
+                        className={classes.sideMenuListItemLabel}
+                        variant="h6"
+                        >
+                        Закладки
+                        </Typography>
+                    </Hidden>
                 </div>
             </li>
             <li className={classes.sideMenuListItem}>
@@ -89,12 +100,14 @@ import { Button, IconButton, Typography } from '@material-ui/core';
                         color="inherit"
                         className={classes.sideMenuListItemIcon}
                     />
-                    <Typography
-                    className={classes.sideMenuListItemLabel}
-                    variant="h6"
-                    >
-                    Список
-                    </Typography>
+                    <Hidden smDown>
+                        <Typography
+                        className={classes.sideMenuListItemLabel}
+                        variant="h6"
+                        >
+                        Список
+                        </Typography>
+                    </Hidden>
                 </div>
             </li>
             <li className={classes.sideMenuListItem}>
@@ -103,16 +116,21 @@ import { Button, IconButton, Typography } from '@material-ui/core';
                         color="inherit"
                         className={classes.sideMenuListItemIcon}
                     />
-                    <Typography
-                    className={classes.sideMenuListItemLabel}
-                    variant="h6"
-                    >
-                    Профиль
-                    </Typography>
+                    <Hidden smDown>
+                        <Typography
+                        className={classes.sideMenuListItemLabel}
+                        variant="h6"
+                        >
+                        Профиль
+                        </Typography>
+                    </Hidden>
                 </div>
             </li>
             <li className={classes.sideMenuListItem}>
-                <Button className={classes.sideMenuTweetButton} color="primary" variant="contained" fullWidth> Твитнуть</Button>
+                <Button className={classes.sideMenuTweetButton} color="primary" variant="contained" fullWidth>
+                    <Hidden smDown>Твитнуть</Hidden>
+                    <Hidden mdUp><CreateIcon /></Hidden>
+                </Button>
             </li>
         </ul>
      );

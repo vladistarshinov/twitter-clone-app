@@ -1,13 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
 import { 
-  Grid,
   IconButton,
   Paper,
   Typography,
   Avatar
 } from "@material-ui/core";
-import { useStylesHome } from '../pages/Home';
+import { useStylesHome } from '../pages/Home/styles';
 import CommentIcon from '@material-ui/icons/ChatBubbleOutlineOutlined';
 import RepostIcon from '@material-ui/icons/RepeatOutlined';
 import LikeIcon from '@material-ui/icons/FavoriteBorderOutlined';
@@ -30,15 +29,12 @@ const Tweet: React.FC<TweetProps> = ({
 }: TweetProps): React.ReactElement => {
     return (
       <Paper className={classNames(classes.tweet, classes.tweetsHeader)} variant="outlined">
-        <Grid container spacing={3}>
-          <Grid item xs={1}>
-            <Avatar
-              className={classes.tweetAvatar}
-              alt={`Аватар пользователя ${user.fullname}`}
-              src={user.avatarURL}
-            />
-          </Grid>
-          <Grid item xs={11}>
+        <Avatar
+          className={classes.tweetAvatar}
+          alt={`Аватар пользователя ${user.fullname}`}
+          src={user.avatarURL}
+        />
+          <div>
             <Typography>
               <b>{user.fullname}</b>
               &nbsp;
@@ -74,8 +70,7 @@ const Tweet: React.FC<TweetProps> = ({
                 </IconButton>  
               </div>
             </div>
-          </Grid>
-        </Grid>
+          </div>
       </Paper>
     );
 };
