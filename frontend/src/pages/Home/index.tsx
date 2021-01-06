@@ -20,45 +20,12 @@ import { SideMenu } from "../../components/SideMenu";
 import Tweet from "../../components/Tweet";
 import { useStylesHome } from "./styles";
 
-import { Theme, withStyles } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField/TextField";
-
 import { AddTweetForm } from "../../components/AddTweetForm";
+import { SearchTextField } from "../../components/SearchTextField";
 // import { useStylesHome } from "../pages/Home/styles";
 
 const Home = (): React.ReactElement => {
   const classes = useStylesHome();
-
-  const SearchTextField = withStyles((theme: Theme) => ({
-    root: {
-      "& .MuiOutlinedInput-root": {
-        borderRadius: 30,
-        backgroundColor: "#E6ECF0",
-        padding: 0,
-        paddingLeft: 15,
-        "&.Mui-focused": {
-          backgroundColor: "#fff",
-          "& fieldset": {
-            borderWidth: 1,
-            borderColor: theme.palette.primary.main,
-          },
-          "& svg path": {
-            fill: theme.palette.primary.main,
-          },
-        },
-        "&:hover": {
-          "& fieldset": { borderColor: "transparent" },
-        },
-        "& fieldset": {
-          borderColor: "transparent",
-          borderWidth: 1,
-        },
-      },
-      "& .MuiOutlinedInput-input": {
-        padding: "12px 14px 14px 5px",
-      },
-    },
-  }))(TextField);
 
   return (
     <Container className={classes.wrapper} maxWidth="lg">
@@ -73,7 +40,9 @@ const Home = (): React.ReactElement => {
             </Paper>
 
             <Paper>
-              <AddTweetForm classes={classes} />
+              <div className={classes.addForm}>
+                <AddTweetForm classes={classes} />
+              </div>
               <div className={classes.addFormBottomLine} />
             </Paper>
             <div className={classes.tweetsCentered}>

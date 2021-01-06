@@ -11,9 +11,13 @@ import { useStylesHome } from "../pages/Home/styles";
 
 interface AddTweetFormProps {
     classes: ReturnType<typeof useStylesHome>;
+    maxRows?: number;
 }
 
-export const AddTweetForm: React.FC<AddTweetFormProps> = ({classes,}: AddTweetFormProps): React.ReactElement => {
+export const AddTweetForm: React.FC<AddTweetFormProps> = ({
+  classes, 
+  maxRows
+}: AddTweetFormProps): React.ReactElement => {
   const MAX_LENGTH = 280;
 
   const [text, setText] = React.useState<string>("");
@@ -32,7 +36,7 @@ export const AddTweetForm: React.FC<AddTweetFormProps> = ({classes,}: AddTweetFo
   };
   
   return (
-    <div className={classes.addForm}>
+    <div>
       <div className={classes.addFormBody}>
         <Avatar
           className={classes.tweetAvatar}
@@ -44,6 +48,7 @@ export const AddTweetForm: React.FC<AddTweetFormProps> = ({classes,}: AddTweetFo
           className={classes.addFormTextarea}
           placeholder="Что происходит?"
           value={text}
+          rowsMax={maxRows}
         />
       </div>
       <div className={classes.addFormBottom}>
