@@ -22,10 +22,17 @@ import { useStylesHome } from "./styles";
 
 import { AddTweetForm } from "../../components/AddTweetForm";
 import { SearchTextField } from "../../components/SearchTextField";
+import { useDispatch } from "react-redux";
+import { fetchTweets } from "../../redux/ducks/tweets/actionCreators";
 // import { useStylesHome } from "../pages/Home/styles";
 
 const Home = (): React.ReactElement => {
+  const dispatch = useDispatch();
   const classes = useStylesHome();
+
+  React.useEffect(() => {
+    dispatch(fetchTweets());
+  }, []);
 
   return (
     <Container className={classes.wrapper} maxWidth="lg">
